@@ -1,0 +1,1 @@
+-e git://github.com/pydcs/dcs@2baba37e32bc55fed59ef977c43dad275c9821eb#egg=pydcs
