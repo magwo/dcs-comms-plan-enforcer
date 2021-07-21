@@ -1,5 +1,7 @@
 # dcs-comms-plan-enforcer
 
+Enforces radio presets and intraflight frequency according to a standardized comms plan. Flight names are used to determine intraflight frequencies, see `comms_plan.py`.
+
 ## Requirements
 
 * Python 3.9
