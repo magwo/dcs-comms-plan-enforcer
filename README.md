@@ -11,6 +11,8 @@ Enforces radio presets and intraflight frequency according to a standardized com
 
 `python main.py myMissionFile.miz enforcedMissionFile.miz`
 
+(Future updates will include exe file releases)
+
 ## Example run
 
 ```
