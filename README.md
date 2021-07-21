@@ -1,5 +1,14 @@
 # dcs-comms-plan-enforcer
 
+## Requirements
+
+* Python 3.9
+* pydcs (see requirements.txt)
+
+## Usage
+
+`python main.py myMissionFile.miz enforcedMissionFile.miz`
+
 ## Example run
 
 ```
