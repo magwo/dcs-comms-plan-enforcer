@@ -1,15 +1,8 @@
-from handlers import handle_plane_group
+from enforcer import Enforcer
 import dcs
 import sys
+import json
 
-from dcs import countries
-from dcs.unitgroup import PlaneGroup
-
-from comms_plan import UHF_PLAN, VIGGEN_PLAN, INTRA_PLAN
-
-m = dcs.Mission()
-
-print(sys.argv)
 
 if len(sys.argv) < 2:
     print("#                                           #")
@@ -18,27 +11,31 @@ if len(sys.argv) < 2:
     sys.exit(1)
 
 filename = sys.argv[1]
+m = dcs.Mission()
 print("Attempting to load mission file", filename)
 m.load_file(filename)
+print("Loaded mission file", filename)
 
-
-def processUnit(plane_or_helicopter: PlaneGroup):
-    return
-
-
-# for coalition in m.coalition:
-#     print(coalition)
 
 num_updated = 0
-for country_id in m._COUNTRY_IDS:
-    country = m.country_by_id(country_id)
+with open("comms_plan.json", "r") as f:
+    json_content = f.read()
+    all_comms_plans = json.loads(json_content)
 
-    if country:
-        for group in country.plane_group:
-            # print("Group", group)
-            num_updated += handle_plane_group(group)
-            # for unit in group.units:
-            #     print("Unit type", unit.type)
+    for coalition_name in m.coalition:
+        comms_plan = all_comms_plans.get(coalition_name)
+
+        if comms_plan:
+            print("Found comms plan for {}".format(coalition_name))
+            enforcer = Enforcer(comms_plan=comms_plan)
+
+            for country_name in m.coalition[coalition_name].countries:
+                country = m.coalition[coalition_name].countries[country_name]
+
+                for group in country.plane_group:
+                    num_updated += enforcer.handle_plane_group(group)
+        else:
+            print("No comms plan found for {}".format(coalition_name))
 
 print("{} units were updated/enforced".format(num_updated))
 
