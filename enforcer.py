@@ -11,6 +11,7 @@ supported_types = [
     "F-14B",
     "A-10C_2",
     "AV8BNA",
+    # TODO: Add more
 ]
 
 @dataclass
