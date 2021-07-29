@@ -35,7 +35,7 @@ with open("comms_plan.json", "r") as f:
 
                 for planeGroup in country.plane_group:
                     num_updated += enforcer.handle_group(planeGroup)
-                for heliGroup in country.plane_group:
+                for heliGroup in country.helicopter_group:
                     num_updated += enforcer.handle_group(heliGroup)
         else:
             print("No comms plan found for {}".format(coalition_name))

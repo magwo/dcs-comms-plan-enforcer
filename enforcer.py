@@ -1,20 +1,22 @@
 from os import name
+from typing import List
 
 from dcs.helicopters import Mi_24P, Mi_8MT, UH_1H
 from util import fuzzy_find_by_name, print_bold, print_success, print_warning
 from dataclasses import dataclass
 from dcs.flyingunit import FlyingUnit
 from dcs.unitgroup import HelicopterGroup, PlaneGroup
-from dcs.planes import AJS37, F_16C_50, FA_18C_hornet, F_14B, A_10C, A_10C_2, AV8BNA, JF_17, L_39C, L_39ZA, M_2000C, MiG_21Bis
+from dcs.planes import AJS37, F_16C_50, FA_18C_hornet, F_14B, AV8BNA, F_5E_3, JF_17, L_39C, L_39ZA, M_2000C, MiG_21Bis
 
 supported_type_ids = [
     AJS37.id,
     F_16C_50.id,
     FA_18C_hornet.id,
     F_14B.id,
-    A_10C.id,
-    A_10C_2.id,
+    # A_10C.id,
+    # A_10C_2.id,
     AV8BNA.id,
+    F_5E_3.id,
     L_39C.id,
     L_39ZA.id,
     UH_1H.id,
@@ -23,6 +25,12 @@ supported_type_ids = [
     MiG_21Bis.id,
     JF_17.id,
     M_2000C.id
+]
+
+zero_indexed_type_ids = [
+    MiG_21Bis.id,
+    L_39C.id,
+    L_39ZA.id,
 ]
 
 @dataclass
@@ -45,7 +53,8 @@ class Enforcer:
     @property
     def ai_frequencies(self):
         return self.comms_plan.get("ai_frequencies", {})
-
+    
+    # TODO: Put check and enforce in same functions
     def handle_group(self, group: PlaneGroup or HelicopterGroup) -> int:
         """ Returns number of units updated """
         intra = fuzzy_find_by_name(self.intra_plan, group.name)
@@ -63,22 +72,24 @@ class Enforcer:
 
                 print_bold(f"Enforcing channels of {unit.type} {unit.name}")
                 num_updated += 1
-                if unit.type == "AJS37":
+                if unit.type == AJS37.id:
                     self.handle_ajs37(unit, intra)
-                elif unit.type == "F-16C_50":
+                elif unit.type == F_16C_50.id:
                     self.handle_uhf_vhf_capable(unit, intra)
-                elif unit.type == "FA-18C_hornet":
+                elif unit.type == FA_18C_hornet.id:
                     self.handle_double_uhf_capable(unit, intra)
-                elif unit.type == "F-14B":
+                elif unit.type == F_14B.id:
                     self.handle_double_uhf_capable(unit, intra)
-                elif unit.type == "AV8BNA":
+                elif unit.type == AV8BNA.id:
                     self.handle_double_uhf_capable(unit, intra)
-                elif unit.type == "A-10C_2":
-                    # TODO: See if it works
-                    self.handle_uhf_vhf_capable(unit, intra)
-                elif unit.type == "A-10C":
-                    # TODO: See if it works
-                    self.handle_uhf_vhf_capable(unit, intra)
+                # elif unit.type == A_10C_2:
+                #     # TODO: See if it works
+                #     self.handle_uhf_vhf_capable(unit, intra)
+                # elif unit.type == "A-10C":
+                #     # TODO: See if it works
+                #     self.handle_uhf_vhf_capable(unit, intra)
+                else:
+                    self.handle_single_uhf_only_capable(unit)
             elif previously_skipped_type != unit.type:
                 print("Unit type {} not supported, skipping".format(unit.type))
                 previously_skipped_type = unit.type
@@ -98,9 +109,10 @@ class Enforcer:
                 expectedChannels = self.uhf_plan
 
             numIncorrect = 0
+            chanNumOffset = 1 if unit.type in zero_indexed_type_ids else 0
             for i in range(0, len(expectedChannels)):
-                chanNum = i + 1
-                if channels[chanNum] != expectedChannels[i]:
+                chanNum = i + 1 + chanNumOffset
+                if channels.get(chanNum) and channels.get(chanNum) != expectedChannels[i]:
                     numIncorrect += 1
                     self.accumulated_errors += 1
                     print_warning(f"Incorrect channel {chanNum}: {channels[chanNum]} should be {expectedChannels[i]}")
@@ -139,9 +151,14 @@ class Enforcer:
         if intra:
             unit.set_radio_channel_preset(2, 1, intra[0])
 
+    def handle_single_uhf_only_capable(self, unit: FlyingUnit):
+        print("Single UHF!", unit.radio)
+        self.handle_generic_uhf_preset_capable(unit, 1, 1)
+
     def handle_generic_uhf_preset_capable(self, unit: FlyingUnit, radioNum: int, chanNumOffset: int):
         uhf_plan = self.uhf_plan
         for i in range(0, len(uhf_plan)):
+            # TODO: Offset due to ruski zero-indexed
             chanNum = i + chanNumOffset
             # print("Setting freq", chanNum, uhf_plan[i])
             unit.set_radio_channel_preset(radioNum, chanNum, uhf_plan[i])
