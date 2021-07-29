@@ -1,3 +1,4 @@
+from util import print_bold, print_warning
 from enforcer import Enforcer
 import dcs
 import sys
@@ -38,6 +39,10 @@ with open("comms_plan.json", "r") as f:
             print("No comms plan found for {}".format(coalition_name))
 
 print("{} units were updated/enforced".format(num_updated))
+if enforcer.accumulated_errors > 0:
+    print_warning(f"There were {enforcer.accumulated_errors} incorrects")
+else:
+    print_bold("MISSION CHECKS OUT")
 
 if len(sys.argv) >= 3:
     out_filename = sys.argv[2]
