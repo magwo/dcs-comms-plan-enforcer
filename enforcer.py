@@ -6,7 +6,7 @@ from util import fuzzy_find_by_name, print_bold, print_success, print_warning
 from dataclasses import dataclass
 from dcs.flyingunit import FlyingUnit
 from dcs.unitgroup import HelicopterGroup, PlaneGroup
-from dcs.planes import AJS37, F_16C_50, FA_18C_hornet, F_14B, AV8BNA, F_5E_3, JF_17, L_39C, L_39ZA, M_2000C, MiG_21Bis
+from dcs.planes import AJS37, A_10C, A_10C_2, F_16C_50, FA_18C_hornet, F_14B, AV8BNA, F_5E_3, JF_17, L_39C, L_39ZA, M_2000C, MiG_21Bis
 
 supported_type_ids = [
     AJS37.id,
@@ -32,6 +32,25 @@ zero_indexed_type_ids = [
     L_39C.id,
     L_39ZA.id,
 ]
+
+double_uhf_type_ids = [
+    FA_18C_hornet.id,
+    F_14B.id,
+    AV8BNA.id,
+]
+
+vhf_secondary_type_ids = [
+    F_16C_50.id,
+    A_10C.id,
+    A_10C_2.id,
+    M_2000C.id
+]
+
+@dataclass
+class IntraFrequencies:
+    uhf: float
+    vhf: float
+    # TODO: Use this class
 
 @dataclass
 class Enforcer:
@@ -67,40 +86,30 @@ class Enforcer:
         previously_skipped_type = None
         for unit in group.units:
             if unit.type in supported_type_ids:
-                print()
-                self.check_unit(unit)
+                # print(f"Unit {unit.type} has {len(unit.radio)} radios", unit.radio)
+                if not self.check_uhf_primary(unit) or not self.check_intra_if_applicable(unit, intra):
+                    print_bold(f"Enforcing channels of {unit.type} {unit.name}")
+                    num_updated += 1
+                    if unit.type == AJS37.id:
+                        self.handle_ajs37(unit, intra)
+                    elif unit.type in vhf_secondary_type_ids:
+                        self.handle_uhf_vhf_capable(unit, intra)
+                    elif unit.type in double_uhf_type_ids:
+                        self.handle_double_uhf_capable(unit, intra)
+                    else:
+                        self.handle_single_uhf_only_capable(unit)
 
-                print_bold(f"Enforcing channels of {unit.type} {unit.name}")
-                num_updated += 1
-                if unit.type == AJS37.id:
-                    self.handle_ajs37(unit, intra)
-                elif unit.type == F_16C_50.id:
-                    self.handle_uhf_vhf_capable(unit, intra)
-                elif unit.type == FA_18C_hornet.id:
-                    self.handle_double_uhf_capable(unit, intra)
-                elif unit.type == F_14B.id:
-                    self.handle_double_uhf_capable(unit, intra)
-                elif unit.type == AV8BNA.id:
-                    self.handle_double_uhf_capable(unit, intra)
-                # elif unit.type == A_10C_2:
-                #     # TODO: See if it works
-                #     self.handle_uhf_vhf_capable(unit, intra)
-                # elif unit.type == "A-10C":
-                #     # TODO: See if it works
-                #     self.handle_uhf_vhf_capable(unit, intra)
-                else:
-                    self.handle_single_uhf_only_capable(unit)
             elif previously_skipped_type != unit.type:
                 print("Unit type {} not supported, skipping".format(unit.type))
                 previously_skipped_type = unit.type
         
         return num_updated
 
-    def check_unit(self, unit: FlyingUnit):
-        print(f"Checking unit {unit.name} of type {unit.type}")
+    def check_uhf_primary(self, unit: FlyingUnit) -> bool:
+        """Returns True if unit has correct presets already"""
+        numIncorrect = 0
         try:
             uhf_primary_radio = unit.radio[1]
-            # print("Radio 1 is", uhf_primary_radio)
             channels = uhf_primary_radio.get("channels")
             
             if unit.type == "AJS37":
@@ -108,21 +117,44 @@ class Enforcer:
             else:
                 expectedChannels = self.uhf_plan
 
-            numIncorrect = 0
-            chanNumOffset = 1 if unit.type in zero_indexed_type_ids else 0
+            chanNumOffset = 2 if unit.type in zero_indexed_type_ids else 1
             for i in range(0, len(expectedChannels)):
-                chanNum = i + 1 + chanNumOffset
-                if channels.get(chanNum) and channels.get(chanNum) != expectedChannels[i]:
-                    numIncorrect += 1
-                    self.accumulated_errors += 1
-                    print_warning(f"Incorrect channel {chanNum}: {channels[chanNum]} should be {expectedChannels[i]}")
+                chanNum = i + chanNumOffset
+                if channels.get(chanNum):
+                    if channels.get(chanNum) != expectedChannels[i]:
+                        numIncorrect += 1
+                        self.accumulated_errors += 1
+                        print_warning(f"{unit.name} incorrect channel {chanNum}: {channels[chanNum]} should be {expectedChannels[i]}")
+                    else:
+                        pass
+                        # print(f"{unit.name} correct channel {chanNum}: {channels[chanNum]} should be {expectedChannels[i]}")
             if numIncorrect > 0:
                 print_warning(f"{numIncorrect} incorrect channels for unit {unit.name}")
             else:
                 print_success(f"Unit {unit.name} has correct primary channels!")
-
         except (AttributeError, TypeError) as e:
             print_warning(f"Unit {unit.name} of type {unit.type} with radio {unit.radio} not checkable, probably because A-10 or AI controlled")
+            return True
+
+        return numIncorrect == 0
+
+    def check_intra_if_applicable(self, unit: FlyingUnit, intra):
+        if not intra:
+            return True
+        try:
+            if unit.type in vhf_secondary_type_ids or unit.type in double_uhf_type_ids:
+                intra_used = intra[0] if unit.type in double_uhf_type_ids else intra[1]
+                secondary_radio = unit.radio.get(2)
+                channels = secondary_radio.get("channels")
+                if channels.get(1) == intra_used:
+                    print_success(f"Unit {unit.name} has correct intra {intra_used}!")
+                else:
+                    print_warning(f"Unit {unit.name} has incorrect intra {channels[1]}, expected {intra_used}")
+                    self.accumulated_errors += 1
+                    return False
+        except (AttributeError, TypeError) as e:
+            print_warning(f"Could not check intra of {unit.name} of type {unit.type} with radio {unit.radio} probably because A-10 or AI controlled {e}")
+        return True
 
 
     def handle_ai_group_if_applicable(self, group: PlaneGroup):
@@ -142,23 +174,26 @@ class Enforcer:
             unit.set_radio_channel_preset(1, chanNum, self.viggen_plan[i])
 
     def handle_uhf_vhf_capable(self, unit: FlyingUnit, intra: tuple[float, float]):
-        self.handle_generic_uhf_preset_capable(unit, 1, 1)
+        self.handle_primary_uhf_radio(unit, 1)
         if intra:
             unit.set_radio_channel_preset(2, 1, intra[1])
 
     def handle_double_uhf_capable(self, unit: FlyingUnit, intra: tuple[float, float]):
-        self.handle_generic_uhf_preset_capable(unit, 1, 1)
+        self.handle_primary_uhf_radio(unit, 1)
         if intra:
             unit.set_radio_channel_preset(2, 1, intra[0])
 
     def handle_single_uhf_only_capable(self, unit: FlyingUnit):
-        print("Single UHF!", unit.radio)
-        self.handle_generic_uhf_preset_capable(unit, 1, 1)
+        self.handle_primary_uhf_radio(unit, 1)
 
-    def handle_generic_uhf_preset_capable(self, unit: FlyingUnit, radioNum: int, chanNumOffset: int):
+    def handle_primary_uhf_radio(self, unit: FlyingUnit, radioNum: int):
+        if not unit.radio or not unit.radio[radioNum]:
+            print_warning(f"Unit {unit.name} has no radio {radioNum}, literally can't even :S")
+            return
         uhf_plan = self.uhf_plan
+        chanNumOffset = 2 if unit.type in zero_indexed_type_ids else 1
         for i in range(0, len(uhf_plan)):
-            # TODO: Offset due to ruski zero-indexed
             chanNum = i + chanNumOffset
-            # print("Setting freq", chanNum, uhf_plan[i])
-            unit.set_radio_channel_preset(radioNum, chanNum, uhf_plan[i])
+            if chanNum <= unit.num_radio_channels(radioNum):
+                # print(f"Setting chan {chanNum} of radio {radioNum} ({uhf_plan[i]})")
+                unit.set_radio_channel_preset(radioNum, chanNum, uhf_plan[i])

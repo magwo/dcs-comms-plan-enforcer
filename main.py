@@ -27,7 +27,7 @@ with open("comms_plan.json", "r") as f:
         comms_plan = all_comms_plans.get(coalition_name)
 
         if comms_plan:
-            print("Found comms plan for {}".format(coalition_name))
+            print_bold("Found comms plan for {}".format(coalition_name))
             enforcer = Enforcer(comms_plan=comms_plan)
 
             for country_name in m.coalition[coalition_name].countries:
@@ -38,9 +38,9 @@ with open("comms_plan.json", "r") as f:
                 for heliGroup in country.helicopter_group:
                     num_updated += enforcer.handle_group(heliGroup)
         else:
-            print("No comms plan found for {}".format(coalition_name))
+            print_bold("No comms plan found for {}".format(coalition_name))
 
-print("{} units were updated/enforced".format(num_updated))
+print_bold("{} units were updated/enforced".format(num_updated))
 if enforcer.accumulated_errors > 0:
     print_warning(f"There were {enforcer.accumulated_errors} incorrects")
 else:
