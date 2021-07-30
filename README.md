@@ -1,6 +1,6 @@
 # dcs-comms-plan-enforcer
 
-Enforces radio presets and intraflight frequency according to a standardized comms plan. Flight names are used to determine intraflight frequencies, see `comms_plan.py`.
+Enforces radio presets and intraflight frequency according to a standardized comms plan. Flight names are used to determine intraflight frequencies, see `comms_plan.py`. Also checks and sets frequencies of AI flights such as tankers or AWACS.
 
 ## Requirements
 
@@ -18,343 +18,367 @@ Enforces radio presets and intraflight frequency according to a standardized com
 ```
 python main.py test_mission.miz output.miz
 
-Attempting to load mission file test_mission.miz
-Loaded mission file test_mission.miz
-Unit type Tu-95MS not supported, skipping
-Updating/enforcing Dogfight F/A-18C RED 1
-Updating/enforcing Dogfight F/A-18C RED 2
-Unit type A-50 not supported, skipping
-Updating/enforcing Dogfight F-16C RED 1
-Updating/enforcing Dogfight F-16C RED 2
-Unit type MiG-29S not supported, skipping
-Unit type MiG-29S not supported, skipping
-Unit type MiG-21Bis not supported, skipping
-Unit type MiG-21Bis not supported, skipping
-Unit type M-2000C not supported, skipping
-Unit type M-2000C not supported, skipping
+Loaded mission file test_mission_syria.miz
+Found comms plan for blue
+Unit Monster91 has correct primary channels!
+Unit Monster92 has correct primary channels!
+Unit Monster93 has correct primary channels!
+Unit Monster94 has correct primary channels!
+Unit Vodka61 has correct primary channels!
+Unit Vodka62 has correct primary channels!
+Unit Vodka63 has correct primary channels!
+Unit Vodka64 has correct primary channels!
 Unit type FW-190D9 not supported, skipping
-Unit type FW-190D9 not supported, skipping
-Unit type MiG-19P not supported, skipping
-Unit type MiG-19P not supported, skipping
-Unit type Bf-109K-4 not supported, skipping
-Unit type Bf-109K-4 not supported, skipping
-Unit type Su-27 not supported, skipping
-Unit type Su-27 not supported, skipping
-Unit type MiG-29S not supported, skipping
-Unit type MiG-29S not supported, skipping
-Unit type MiG-29S not supported, skipping
-Unit type MiG-29S not supported, skipping
-Unit type MiG-29S not supported, skipping
-Unit type MiG-29S not supported, skipping
-Unit type Tu-142 not supported, skipping
-Unit type Tu-142 not supported, skipping
-Unit type MiG-21Bis not supported, skipping
-Unit type MiG-29A not supported, skipping
-Unit type MiG-21Bis not supported, skipping
-Unit type MiG-29S not supported, skipping
-Unit type MiG-29S not supported, skipping
-Unit type MiG-29S not supported, skipping
-Unit type MiG-29S not supported, skipping
-Unit type MiG-29S not supported, skipping
-Unit type MiG-29S not supported, skipping
-Unit type MiG-29S not supported, skipping
-Unit type Tu-160 not supported, skipping
-Unit type Tu-160 not supported, skipping
-Assigning intra (332.4, 132.4) to flight Leshy2
-Unit type Su-27 not supported, skipping
-Unit type Su-27 not supported, skipping
-Unit type Su-27 not supported, skipping
-Unit type Su-27 not supported, skipping
-Updating/enforcing Player_01
-Updating/enforcing Player_02
-Updating/enforcing Player_03
-Updating/enforcing Player_04
-Updating/enforcing Player_08
-Updating/enforcing Player_06
-Updating/enforcing Player_07
-Updating/enforcing Player_05
-Updating/enforcing Player_11
-Updating/enforcing Player_09
-Updating/enforcing Player_10
-Updating/enforcing Player_12
+Unit Unicorn51 has correct primary channels!
+Unit Unicorn52 has correct primary channels!
+Unit Unicorn53 has correct primary channels!
+Unit Unicorn514 has correct primary channels!
+Unit Zoom71 has correct primary channels!
+Unit Zoom72 has correct primary channels!
+Unit Zoom73 has correct primary channels!
+Unit Zoom74 has correct primary channels!
+Unit Player_01 has correct primary channels!
+Unit Player_02 has correct primary channels!
+Unit Player_03 has correct primary channels!
+Unit Player_04 has correct primary channels!
+Unit Player_08 has correct primary channels!
+Unit Player_06 has correct primary channels!
+Unit Player_07 has correct primary channels!
+Unit Player_05 has correct primary channels!
+Unit Player_11 has correct primary channels!
+Unit Player_09 has correct primary channels!
+Unit Player_10 has correct primary channels!
+Unit Player_12 has correct primary channels!
+AI group SHELL3 103X (USN) has correct frequency 253
 Unit type KC135MPRS not supported, skipping
-Updating/enforcing Player_16
-Updating/enforcing Player_14
-Updating/enforcing Player_15
-Updating/enforcing Player_13
-Updating/enforcing Player_17
-Updating/enforcing Player_18
-Updating/enforcing Player_19
-Updating/enforcing Player_20
-Updating/enforcing Player_21
-Updating/enforcing Player_22
-Updating/enforcing Player_23
-Updating/enforcing Player_24
-Updating/enforcing Player_25
-Updating/enforcing Player_26
-Updating/enforcing Player_27
-Updating/enforcing Player_28
-Updating/enforcing Player_29
-Updating/enforcing Player_30
-Updating/enforcing Player_31
-Updating/enforcing Player_32
-Assigning intra (331.7, 131.7) to flight Fenris4
-Updating/enforcing Pilot #005
-Updating/enforcing Pilot #010
-Updating/enforcing Pilot #011
-Updating/enforcing Pilot #012
+Unit Player_16 has correct primary channels!
+Unit Player_14 has correct primary channels!
+Unit Player_15 has correct primary channels!
+Unit Player_13 has correct primary channels!
+Unit Player_17 has correct primary channels!
+Unit Player_18 has correct primary channels!
+Unit Player_19 has correct primary channels!
+Unit Player_20 has correct primary channels!
+Unit Player_21 has correct primary channels!
+Unit Player_22 has correct primary channels!
+Unit Player_23 has correct primary channels!
+Unit Player_24 has correct primary channels!
+Unit Player_25 has correct primary channels!
+Unit Player_26 has correct primary channels!
+Unit Player_27 has correct primary channels!
+Unit Player_28 has correct primary channels!
+Unit Player_29 has correct primary channels!
+Unit Player_30 has correct primary channels!
+Unit Player_31 has correct primary channels!
+Unit Player_32 has correct primary channels!
+Unit Pilot #005 has correct primary channels!
+Unit Pilot #010 has correct primary channels!
+Unit Pilot #011 has correct primary channels!
+Unit Pilot #012 has correct primary channels!
+AI group ARCO1 101X (USN) has correct frequency 260
 Unit type KC135MPRS not supported, skipping
+AI group TEXACO2 102X (USAF) has correct frequency 266
 Unit type KC-135 not supported, skipping
+AI group STINGRAY1 has correct frequency 251
 Unit type E-3A not supported, skipping
-Assigning intra (331.8, 131.8) to flight Gandalf5
-Updating/enforcing Gandalf51
-Updating/enforcing Gandalf52
-Updating/enforcing Gandalf53
-Updating/enforcing Gandalf54
-Assigning intra (331.3, 131.3) to flight Devil1
-Updating/enforcing Devil11
-Updating/enforcing Devil12
-Updating/enforcing Devil13
-Updating/enforcing Devil14
-Assigning intra (332.0, 132.0) to flight Hawg7
-Updating/enforcing Hawg71
-Updating/enforcing Hawg72
-Updating/enforcing Hawg73
-Updating/enforcing Hawg74
-Assigning intra (331.9, 131.9) to flight Gypsy6
-Updating/enforcing Gypsy61
-Updating/enforcing Gypsy62
-Updating/enforcing Gypsy63
-Updating/enforcing Gypsy64
-Assigning intra (331.4, 131.4) to flight Echo2
-Updating/enforcing Echo21
-Updating/enforcing Echo22
-Updating/enforcing Echo23
-Updating/enforcing Echo24
-Assigning intra (331.5, 131.5) to flight Empress3
-Updating/enforcing Empress31
-Updating/enforcing Empress32
-Updating/enforcing Empress33
-Updating/enforcing Empress34
-Assigning intra (332.1, 132.1) to flight Ironside8
-Updating/enforcing Ironside81
-Updating/enforcing Ironside82
-Updating/enforcing Ironside83
-Updating/enforcing Ironside84
-Assigning intra (332.6, 132.6) to flight Nemo3
-Unit type F-5E-3 not supported, skipping
-Unit type F-5E-3 not supported, skipping
-Unit type F-5E-3 not supported, skipping
-Unit type F-5E-3 not supported, skipping
-Assigning intra (332.9, 132.9) to flight Quarterback1
-Unit type AV8BNA not supported, skipping
-Unit type AV8BNA not supported, skipping
-Unit type AV8BNA not supported, skipping
-Unit type AV8BNA not supported, skipping
-Assigning intra (332.8, 132.8) to flight Pinball8
+Unit Gandalf51 has correct primary channels!
+Unit Gandalf52 has correct primary channels!
+Unit Gandalf53 has correct primary channels!
+Unit Gandalf54 has correct primary channels!
+Unit Devil11 has correct primary channels!
+Unit Devil11 has incorrect intra 305, expected 331.3
+Enforcing channels of FA-18C_hornet Devil11
+Unit Devil12 has correct primary channels!
+Unit Devil12 has incorrect intra 305, expected 331.3
+Enforcing channels of FA-18C_hornet Devil12
+Unit Devil13 has correct primary channels!
+Unit Devil13 has incorrect intra 305, expected 331.3
+Enforcing channels of FA-18C_hornet Devil13
+Unit Devil14 has correct primary channels!
+Unit Devil14 has incorrect intra 305, expected 331.3
+Enforcing channels of FA-18C_hornet Devil14
+Unit type A-10C_2 not supported, skipping
+Unit Gypsy61 has correct primary channels!
+Unit Gypsy61 has incorrect intra 305, expected 331.9
+Enforcing channels of F-14B Gypsy61
+Unit Gypsy62 has correct primary channels!
+Unit Gypsy62 has incorrect intra 305, expected 331.9
+Enforcing channels of F-14B Gypsy62
+Unit Gypsy63 has correct primary channels!
+Unit Gypsy63 has incorrect intra 305, expected 331.9
+Enforcing channels of F-14B Gypsy63
+Unit Gypsy64 has correct primary channels!
+Unit Gypsy64 has incorrect intra 305, expected 331.9
+Enforcing channels of F-14B Gypsy64
+Unit type A-10C_2 not supported, skipping
+Unit Nemo31 has correct primary channels!
+Unit Nemo32 has correct primary channels!
+Unit Nemo33 has correct primary channels!
+Unit Nemo34 has correct primary channels!
+Unit Quarterback11 has correct primary channels!
+Unit Quarterback11 has incorrect intra 133, expected 332.9
+Enforcing channels of AV8BNA Quarterback11
+Unit Quarterback12 has correct primary channels!
+Unit Quarterback12 has incorrect intra 133, expected 332.9
+Enforcing channels of AV8BNA Quarterback12
+Unit Quarterback13 has correct primary channels!
+Unit Quarterback13 has incorrect intra 133, expected 332.9
+Enforcing channels of AV8BNA Quarterback13
+Unit Quarterback14 has correct primary channels!
+Unit Quarterback14 has incorrect intra 133, expected 332.9
+Enforcing channels of AV8BNA Quarterback14
 Unit type F-15C not supported, skipping
-Unit type F-15C not supported, skipping
-Unit type F-15C not supported, skipping
-Unit type F-15C not supported, skipping
-Updating/enforcing ._MissionControl_A
-Assigning intra (333.8, 133.8) to flight XRay8
-Unit type JF-17 not supported, skipping
-Unit type JF-17 not supported, skipping
-Unit type JF-17 not supported, skipping
-Unit type JF-17 not supported, skipping
-Assigning intra (330.6, 130.6) to flight Adder1
-Updating/enforcing Adder11
-Updating/enforcing Adder12
-Updating/enforcing Adder13
-Updating/enforcing Adder14
-Assigning intra (330.7, 130.7) to flight Beaver2
-Updating/enforcing Beaver21
-Updating/enforcing Beaver22
-Updating/enforcing Beaver23
-Updating/enforcing Beaver24
-Assigning intra (330.8, 130.8) to flight Camel3
-Updating/enforcing Camel31
-Updating/enforcing Camel32
-Updating/enforcing Camel33
-Updating/enforcing Camel34
-Assigning intra (330.9, 130.9) to flight Cheetah4
-Updating/enforcing Cheetah41
-Updating/enforcing Cheetah42
-Updating/enforcing Cheetah43
-Updating/enforcing Cheetah44
+Unit ._MissionControl_A has correct primary channels!
+Unit XRay81 has correct primary channels!
+Unit XRay82 has correct primary channels!
+Unit XRay83 has correct primary channels!
+Unit XRay84 has correct primary channels!
+Unit Adder11 has correct primary channels!
+Unit Adder11 has incorrect intra 305, expected 330.6
+Enforcing channels of FA-18C_hornet Adder11
+Unit Adder12 has correct primary channels!
+Unit Adder12 has incorrect intra 305, expected 330.6
+Enforcing channels of FA-18C_hornet Adder12
+Unit Adder13 has correct primary channels!
+Unit Adder13 has incorrect intra 305, expected 330.6
+Enforcing channels of FA-18C_hornet Adder13
+Unit Adder14 has correct primary channels!
+Unit Adder14 has incorrect intra 305, expected 330.6
+Enforcing channels of FA-18C_hornet Adder14
+Unit Beaver21 has correct primary channels!
+Unit Beaver21 has incorrect intra 305, expected 330.7
+Enforcing channels of FA-18C_hornet Beaver21
+Unit Beaver22 has correct primary channels!
+Unit Beaver22 has incorrect intra 305, expected 330.7
+Enforcing channels of FA-18C_hornet Beaver22
+Unit Beaver23 has correct primary channels!
+Unit Beaver23 has incorrect intra 305, expected 330.7
+Enforcing channels of FA-18C_hornet Beaver23
+Unit Beaver24 has correct primary channels!
+Unit Beaver24 has incorrect intra 305, expected 330.7
+Enforcing channels of FA-18C_hornet Beaver24
+Unit Camel31 has correct primary channels!
+Unit Camel31 has incorrect intra 305, expected 330.8
+Enforcing channels of FA-18C_hornet Camel31
+Unit Camel32 has correct primary channels!
+Unit Camel32 has incorrect intra 305, expected 330.8
+Enforcing channels of FA-18C_hornet Camel32
+Unit Camel33 has correct primary channels!
+Unit Camel33 has incorrect intra 305, expected 330.8
+Enforcing channels of FA-18C_hornet Camel33
+Unit Camel34 has correct primary channels!
+Unit Camel34 has incorrect intra 305, expected 330.8
+Enforcing channels of FA-18C_hornet Camel34
+Unit Cheetah41 has correct primary channels!
+Unit Cheetah41 has incorrect intra 305, expected 330.9
+Enforcing channels of F-14B Cheetah41
+Unit Cheetah42 has correct primary channels!
+Unit Cheetah42 has incorrect intra 305, expected 330.9
+Enforcing channels of F-14B Cheetah42
+Unit Cheetah43 has correct primary channels!
+Unit Cheetah43 has incorrect intra 305, expected 330.9
+Enforcing channels of F-14B Cheetah43
+Unit Cheetah44 has correct primary channels!
+Unit Cheetah44 has incorrect intra 305, expected 330.9
+Enforcing channels of F-14B Cheetah44
 Unit type A-10C not supported, skipping
 Unit type F-15E not supported, skipping
-Updating/enforcing Formup Drone F-16C
-Assigning intra (334.2, 134.2) to flight Zodiac5
-Updating/enforcing Zodiac51
-Updating/enforcing Zodiac52
-Updating/enforcing Zodiac53
-Updating/enforcing Zodiac54
-Updating/enforcing Dogfight F/A-18C BLUE 1
-Updating/enforcing Dogfight F/A-18C BLUE 2
-Updating/enforcing Dogfight F-16C BLUE 1
-Updating/enforcing Dogfight F-16C BLUE 2
-Updating/enforcing Dogfight F-14B BLUE 1
-Updating/enforcing Dogfight F-14B BLUE 2
-Assigning intra (333.9, 133.9) to flight Yankee9
+Unit Zodiac51 has correct primary channels!
+Unit Zodiac51 has incorrect intra 305, expected 334.2
+Enforcing channels of FA-18C_hornet Zodiac51
+Unit Zodiac52 has correct primary channels!
+Unit Zodiac52 has incorrect intra 305, expected 334.2
+Enforcing channels of FA-18C_hornet Zodiac52
+Unit Zodiac53 has correct primary channels!
+Unit Zodiac53 has incorrect intra 305, expected 334.2
+Enforcing channels of FA-18C_hornet Zodiac53
+Unit Zodiac54 has correct primary channels!
+Unit Zodiac54 has incorrect intra 305, expected 334.2
+Enforcing channels of FA-18C_hornet Zodiac54
+Unit Dogfight F/A-18C BLUE 1 has correct primary channels!
+Unit Dogfight F/A-18C BLUE 2 has correct primary channels!
+Unit Dogfight F-16C BLUE 1 has correct primary channels!
+Unit Dogfight F-16C BLUE 2 has correct primary channels!
+Unit Dogfight F-14B BLUE 1 has correct primary channels!
+Unit Dogfight F-14B BLUE 2 has correct primary channels!
 Unit type P-51D not supported, skipping
-Unit type P-51D not supported, skipping
-Assigning intra (332.2, 132.2) to flight Jumbo9
 Unit type MiG-15bis not supported, skipping
-Unit type MiG-15bis not supported, skipping
-Unit type MiG-15bis not supported, skipping
-Unit type MiG-15bis not supported, skipping
-Assigning intra (332.3, 132.3) to flight Kraken1
 Unit type F-86F Sabre not supported, skipping
-Unit type F-86F Sabre not supported, skipping
-Unit type F-86F Sabre not supported, skipping
-Unit type F-86F Sabre not supported, skipping
-Assigning intra (334.3, 134.3) to flight Zombie6
-Unit type P-47D-40 not supported, skipping
-Unit type P-47D-40 not supported, skipping
-Unit type P-47D-40 not supported, skipping
 Unit type P-47D-40 not supported, skipping
 Unit type F-15C not supported, skipping
-Unit type F-15C not supported, skipping
-Unit type F-5E-3 not supported, skipping
-Unit type F-5E-3 not supported, skipping
+Unit ZZ Dogfight F-5E-3 BLUE 1 has correct primary channels!
+Unit ZZ Dogfight F-5E-3 BLUE 2 has correct primary channels!
 Unit type F-86F Sabre not supported, skipping
-Unit type F-86F Sabre not supported, skipping
-Unit type JF-17 not supported, skipping
-Unit type JF-17 not supported, skipping
-Unit type M-2000C not supported, skipping
-Unit type M-2000C not supported, skipping
-Unit type P-47D-30 not supported, skipping
+Unit ZZ Dogfight JF-17 BLUE 1 has correct primary channels!
+Unit ZZ Dogfight JF-17 BLUE 2 has correct primary channels!
+Unit ZZ Dogfight M-2000C BLUE 1 has correct primary channels!
+Unit ZZ Dogfight M-2000C BLUE 2 has correct primary channels!
 Unit type P-47D-30 not supported, skipping
 Unit type SpitfireLFMkIX not supported, skipping
-Unit type SpitfireLFMkIX not supported, skipping
 Unit type Su-27 not supported, skipping
-Unit type Su-27 not supported, skipping
-Updating/enforcing Blue Singleton Easy
-Updating/enforcing Blue Two-ship Easy
-Updating/enforcing Pilot #013
-Updating/enforcing Blue Singleton Hard
-Updating/enforcing Blue Two-ship Hard
-Updating/enforcing Pilot #004
-Updating/enforcing Intro - Hornet - Nugget11
-Updating/enforcing Intro - Hornet - Nugget12
-Updating/enforcing Intro - Viper - Nugget11
-Updating/enforcing Intro - Viper - Nugget12
-Updating/enforcing Intro - Warthog - Nugget11
-Updating/enforcing Intro - Warthog - Nugget12
-Updating/enforcing Intro - Viggen - Nugget11
-Updating/enforcing Intro - Viggen - Nugget12
-Updating/enforcing Intro - Tomcat - Nugget11
-Updating/enforcing Intro - Tomcat - Nugget12
-Unit type F-14A-135-GR not supported, skipping
-Unit type F-14A-135-GR not supported, skipping
-Unit type F-14A-135-GR not supported, skipping
-Unit type F-14A-135-GR not supported, skipping
-Unit type F-14A-135-GR not supported, skipping
-Unit type F-14A-135-GR not supported, skipping
-Unit type F-14A-135-GR not supported, skipping
-Unit type F-14A-135-GR not supported, skipping
+Unit Blue Singleton Easy of type FA-18C_hornet with radio None not checkable, probably because A-10 or AI controlled
+Unit Blue Two-ship Easy of type FA-18C_hornet with radio None not checkable, probably because A-10 or AI controlled
+Unit Pilot #013 of type FA-18C_hornet with radio None not checkable, probably because A-10 or AI controlled
+Unit Blue Singleton Hard of type FA-18C_hornet with radio None not checkable, probably because A-10 or AI controlled
+Unit Blue Two-ship Hard of type FA-18C_hornet with radio None not checkable, probably because A-10 or AI controlled
+Unit Pilot #004 of type FA-18C_hornet with radio None not checkable, probably because A-10 or AI controlled
+AI group STINGRAY2 has correct frequency 251
 Unit type E-3A not supported, skipping
+Unit Fenris41_Roadside has correct primary channels!
+Unit Fenris42_Roadside has correct primary channels!
+Unit Fenris43_Roadside has correct primary channels!
+Unit Fenris44_Roadside has correct primary channels!
+Unit Quarterback11_Roadside has correct primary channels!
+Unit Quarterback11_Roadside has incorrect intra 133, expected 332.9
+Enforcing channels of AV8BNA Quarterback11_Roadside
+Unit Quarterback12_Roadside has correct primary channels!
+Unit Quarterback12_Roadside has incorrect intra 133, expected 332.9
+Enforcing channels of AV8BNA Quarterback12_Roadside
+Unit Quarterback13_Roadside has correct primary channels!
+Unit Quarterback13_Roadside has incorrect intra 133, expected 332.9
+Enforcing channels of AV8BNA Quarterback13_Roadside
+Unit Quarterback14_Roadside has correct primary channels!
+Unit Quarterback14_Roadside has incorrect intra 133, expected 332.9
+Enforcing channels of AV8BNA Quarterback14_Roadside
+Unit Zodiac51_Roadside has correct primary channels!
+Unit Zodiac51_Roadside has incorrect intra 305, expected 334.2
+Enforcing channels of FA-18C_hornet Zodiac51_Roadside
+Unit Zodiac52_Roadside has correct primary channels!
+Unit Zodiac52_Roadside has incorrect intra 305, expected 334.2
+Enforcing channels of FA-18C_hornet Zodiac52_Roadside
+Unit Zodiac53_Roadside has correct primary channels!
+Unit Zodiac53_Roadside has incorrect intra 305, expected 334.2
+Enforcing channels of FA-18C_hornet Zodiac53_Roadside
+Unit Zodiac54_Roadside has correct primary channels!
+Unit Zodiac54_Roadside has incorrect intra 305, expected 334.2
+Enforcing channels of FA-18C_hornet Zodiac54_Roadside
+Unit Gandalf51_Roadside has correct primary channels!
+Unit Gandalf52_Roadside has correct primary channels!
+Unit Gandalf53_Roadside has correct primary channels!
+Unit Gandalf54_Roadside has correct primary channels!
+Unit type F-14A-135-GR not supported, skipping
+Unit type F-14A-135-GR not supported, skipping
+AI group TEXACO4 104X (USAF) has correct frequency 255
 Unit type KC-135 not supported, skipping
-Unit type AV8BNA not supported, skipping
-Unit type AV8BNA not supported, skipping
-Unit type AV8BNA not supported, skipping
-Unit type AV8BNA not supported, skipping
-Updating/enforcing ZZ BVR F-16C BLUE 1
-Updating/enforcing ZZ BVR F-16C BLUE 2
-Updating/enforcing ZZ BVR F-16C BLUE 3
-Updating/enforcing ZZ BVR F-16C BLUE 4
-Updating/enforcing ZZ BVR F/A-18C 1
-Updating/enforcing ZZ BVR F/A-18C 2
-Updating/enforcing ZZ BVR F/A-18C 3
-Updating/enforcing ZZ BVR F/A-18C 4
-Updating/enforcing ZZ BVR F-14B BLUE 1
-Updating/enforcing ZZ BVR F-14B BLUE 2
-Updating/enforcing ZZ BVR F-14B BLUE 3
-Updating/enforcing ZZ BVR F-14B BLUE 4
-Updating/enforcing ZZ Intro - Hornet - Nugget21
-Updating/enforcing ZZ Intro - Hornet - Nugget22
-Assigning intra (331.6, 131.6) to flight Epic4
-Updating/enforcing Epic41
-Updating/enforcing Epic42
-Updating/enforcing Epic43
-Updating/enforcing Epic44
+Unit Aerial-1-1 has correct primary channels!
+Unit Quarterback11_Tarawa has correct primary channels!
+Unit Quarterback11_Tarawa has incorrect intra 133, expected 332.9
+Enforcing channels of AV8BNA Quarterback11_Tarawa
+Unit Quarterback12_Tarawa has correct primary channels!
+Unit Quarterback12_Tarawa has incorrect intra 133, expected 332.9
+Enforcing channels of AV8BNA Quarterback12_Tarawa
+Unit Quarterback13_Tarawa has correct primary channels!
+Unit Quarterback13_Tarawa has incorrect intra 133, expected 332.9
+Enforcing channels of AV8BNA Quarterback13_Tarawa
+Unit Quarterback14_Tarawa has correct primary channels!
+Unit Quarterback14_Tarawa has incorrect intra 133, expected 332.9
+Enforcing channels of AV8BNA Quarterback14_Tarawa
+Unit ZZ BVR F-16C BLUE-1 has correct primary channels!
+Unit ZZ BVR F-16C BLUE-2 has correct primary channels!
+Unit ZZ BVR F-16C BLUE-3 has correct primary channels!
+Unit ZZ BVR F-16C BLUE-4 has correct primary channels!
+Unit ZZ BVR F/A-18C BLUE-1 has correct primary channels!
+Unit ZZ BVR F/A-18C BLUE-2 has correct primary channels!
+Unit ZZ BVR F/A-18C BLUE-3 has correct primary channels!
+Unit ZZ BVR F/A-18C BLUE-4 has correct primary channels!
+Unit ZZ BVR F-14B BLUE 1 has correct primary channels!
+Unit ZZ BVR F-14B BLUE 2 has correct primary channels!
+Unit ZZ BVR F-14B BLUE 3 has correct primary channels!
+Unit ZZ BVR F-14B BLUE 4 has correct primary channels!
 Unit type F-15C not supported, skipping
-Unit type F-15C not supported, skipping
-Unit type F-15C not supported, skipping
-Unit type F-15C not supported, skipping
-Assigning intra (332.7, 132.7) to flight Outlaw5
+Unit type SH-60B not supported, skipping
+Unit Rattler21 has correct primary channels!
+Unit Rattler22 has correct primary channels!
+Unit Rattler23 has correct primary channels!
+Unit Rattler24 has correct primary channels!
+Unit type Ka-50 not supported, skipping
+Unit Turtle41 has correct primary channels!
+Unit Turtle42 has correct primary channels!
+Unit Turtle43 has correct primary channels!
+Unit Turtle44 has correct primary channels!
+Unit type Ka-50 not supported, skipping
+Unit Rocky21 has correct primary channels!
+Unit Rocky22 has correct primary channels!
+Unit Rocky23 has correct primary channels!
+Unit Rocky24 has correct primary channels!
+Unit Rocky21_Tarawa has correct primary channels!
+Unit Rocky22_Tarawa has correct primary channels!
+Unit Rocky23_Tarawa has correct primary channels!
+Unit Rocky24_Tarawa has correct primary channels!
+Unit type MiG-29A not supported, skipping
+Unit Zeppelin21 has correct primary channels!
+Unit Zeppelin21 has incorrect intra 305, expected 134.1
+Enforcing channels of M-2000C Zeppelin21
+Unit Zeppelin22 has correct primary channels!
+Unit Zeppelin22 has incorrect intra 305, expected 134.1
+Enforcing channels of M-2000C Zeppelin22
+Unit Zeppelin23 has correct primary channels!
+Unit Zeppelin23 has incorrect intra 305, expected 134.1
+Enforcing channels of M-2000C Zeppelin23
+Unit Zeppelin24 has correct primary channels!
+Unit Zeppelin24 has incorrect intra 305, expected 134.1
+Enforcing channels of M-2000C Zeppelin24
+Unit type SA342M not supported, skipping
 Unit type SpitfireLFMkIX not supported, skipping
-Unit type SpitfireLFMkIX not supported, skipping
-Unit type SpitfireLFMkIX not supported, skipping
-Unit type SpitfireLFMkIX not supported, skipping
-Assigning intra (334.1, 134.1) to flight Zeppelin2
-Unit type M-2000C not supported, skipping
-Unit type M-2000C not supported, skipping
-Unit type M-2000C not supported, skipping
-Unit type M-2000C not supported, skipping
-Assigning intra (332.5, 132.5) to flight Monster9
-Unit type L-39C not supported, skipping
-Unit type L-39C not supported, skipping
-Unit type L-39C not supported, skipping
-Unit type L-39C not supported, skipping
-Assigning intra (333.6, 133.6) to flight Vodka6
-Unit type MiG-21Bis not supported, skipping
-Unit type MiG-21Bis not supported, skipping
-Unit type MiG-21Bis not supported, skipping
-Unit type MiG-21Bis not supported, skipping
-Unit type FW-190D9 not supported, skipping
-Unit type FW-190D9 not supported, skipping
-Assigning intra (333.5, 133.5) to flight Unicorn5
-Unit type L-39C not supported, skipping
-Unit type L-39C not supported, skipping
-Unit type L-39C not supported, skipping
-Unit type L-39C not supported, skipping
-Updating/enforcing ZZ BVR F-16C RED 1
-Updating/enforcing ZZ BVR F-16C RED 2
-Updating/enforcing ZZ BVR F-16C RED 3
-Updating/enforcing ZZ BVR F-16C RED 4
-Updating/enforcing ZZ BVR F/A-18C RED 1
-Updating/enforcing ZZ BVR F/A-18C RED 2
-Updating/enforcing ZZ BVR F/A-18C RED 3
-Updating/enforcing ZZ BVR F/A-18C RED 4
-Unit type E-3A not supported, skipping
-Updating/enforcing ZZ BVR F-14B RED 1
-Updating/enforcing ZZ BVR F-14B RED 2
-Updating/enforcing ZZ BVR F-14B RED 3
-Updating/enforcing ZZ BVR F-14B RED 4
-Unit type J-11A not supported, skipping
-Unit type J-11A not supported, skipping
-Unit type J-11A not supported, skipping
-Unit type J-11A not supported, skipping
-Unit type MiG-29A not supported, skipping
-Unit type MiG-29A not supported, skipping
-Unit type MiG-29A not supported, skipping
-Unit type MiG-29A not supported, skipping
+Unit Empress31 has correct primary channels!
+Unit Empress31 has incorrect intra 127, expected 131.5
+Enforcing channels of F-16C_50 Empress31
+Unit Empress32 has correct primary channels!
+Unit Empress32 has incorrect intra 127, expected 131.5
+Enforcing channels of F-16C_50 Empress32
+Unit Empress33 has correct primary channels!
+Unit Empress33 has incorrect intra 127, expected 131.5
+Enforcing channels of F-16C_50 Empress33
+Unit Empress34 has correct primary channels!
+Unit Empress34 has incorrect intra 127, expected 131.5
+Enforcing channels of F-16C_50 Empress34
+Unit Echo21 has correct primary channels!
+Unit Echo21 has incorrect intra 127, expected 131.4
+Enforcing channels of F-16C_50 Echo21
+Unit Pilot #009 has correct primary channels!
+Unit Pilot #009 has incorrect intra 127, expected 131.4
+Enforcing channels of F-16C_50 Pilot #009
+Unit Pilot #021 has correct primary channels!
+Unit Pilot #021 has incorrect intra 127, expected 131.4
+Enforcing channels of F-16C_50 Pilot #021
+Unit Pilot #022 has correct primary channels!
+Unit Pilot #022 has incorrect intra 127, expected 131.4
+Enforcing channels of F-16C_50 Pilot #022
+Unit Formup Drone F-16C of type F-16C_50 with radio None not checkable, probably because A-10 or AI controlled
+Unit Epic41 has correct primary channels!
+Unit Epic41 has incorrect intra 127, expected 131.6
+Enforcing channels of F-16C_50 Epic41
+Unit Epic42 has correct primary channels!
+Unit Epic42 has incorrect intra 127, expected 131.6
+Enforcing channels of F-16C_50 Epic42
+Unit Epic43 has correct primary channels!
+Unit Epic43 has incorrect intra 127, expected 131.6
+Enforcing channels of F-16C_50 Epic43
+Unit Epic44 has correct primary channels!
+Unit Epic44 has incorrect intra 127, expected 131.6
+Enforcing channels of F-16C_50 Epic44
+Unit type Su-27 not supported, skipping
+Unit Scorpion31 has correct primary channels!
+Unit Scorpion32 has correct primary channels!
+Unit Scorpion33 has correct primary channels!
+Unit Scorpion34 has correct primary channels!
+Unit Scorpion41 has correct primary channels!
+Unit Scorpion42 has correct primary channels!
+Unit Scorpion43 has correct primary channels!
+Unit Scorpion44 has correct primary channels!
+Unit Scorpion31_Cyprus has correct primary channels!
+Unit Scorpion32_Cyprus has correct primary channels!
+Unit Scorpion33_Cyprus has correct primary channels!
+Unit Scorpion34_Cyprus has correct primary channels!
+Unit Scorpion41_Cyprus has correct primary channels!
+Unit Scorpion42_Cyprus has correct primary channels!
+Unit Scorpion43_Cyprus has correct primary channels!
+Unit Scorpion44_Cyprus has correct primary channels!
 Unit type Su-25T not supported, skipping
 Unit type Su-25T not supported, skipping
-Unit type Su-25T not supported, skipping
-Unit type Su-25T not supported, skipping
-Unit type Su-25T not supported, skipping
-Assigning intra (334.4, 134.4) to flight Zoom7
-Unit type L-39ZA not supported, skipping
-Unit type L-39ZA not supported, skipping
-Unit type L-39ZA not supported, skipping
-Unit type L-39ZA not supported, skipping
-Unit type JF-17 not supported, skipping
-Unit type JF-17 not supported, skipping
-Unit type F-4E not supported, skipping
-Unit type F-4E not supported, skipping
-Unit type F-4E not supported, skipping
-Unit type F-4E not supported, skipping
-Updating/enforcing Dogfight F-14B RED 1
-Updating/enforcing Dogfight F-14B RED 2
-Assigning intra (333.7, 133.7) to flight Wedge7
-Unit type MiG-29A not supported, skipping
-Unit type MiG-29A not supported, skipping
-Unit type MiG-29A not supported, skipping
-Unit type MiG-29A not supported, skipping
-144 units were updated/enforced
-Attempting to save to output.miz...
-Saved to output.miz
+No comms plan found for red
+No comms plan found for neutrals
+60 units were updated/enforced
+There were 60 incorrects
+Dry run was completed
 ```
