@@ -9,8 +9,12 @@ from tkinter import filedialog
 root = tk.Tk()
 root.withdraw()
 
+version = "1.0.0"
+print_bold(f"DCS Comms Plan Enforcer v{version} by Mags")
+
 in_filename = sys.argv[1] if len(sys.argv) > 1 else None
 if not in_filename:
+    print_bold("Select mission file")
     in_filename = filedialog.askopenfilename(title="Select mission file", filetypes=[('Mission files', '.miz')])
 
 if not in_filename:
@@ -25,6 +29,7 @@ print("Loaded mission file", in_filename)
 num_updated = 0
 comms_plan_filename = sys.argv[2] if len(sys.argv) > 2 else None
 if not comms_plan_filename:
+    print_bold("Select comms plan JSON file")
     comms_plan_filename = filedialog.askopenfilename(title="Select comms plan JSON file", filetypes=[('JSON files', '.json')])
 
 if not comms_plan_filename:
@@ -59,6 +64,7 @@ else:
 
 out_filename = sys.argv[3] if len(sys.argv) > 3 else None
 if not out_filename:
+    print_bold("Select file to save enforced mission as")
     out_filename = filedialog.asksaveasfilename(title="Save enforced mission as", filetypes=[('Mission files', '.miz')], initialfile=in_filename)
 
 if out_filename:
