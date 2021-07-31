@@ -30,7 +30,7 @@ The exe file also supports command-line arguments on the format:
 
 Any missing command-line arguments will result in a dialog.
 
-You can specify comms plan for `red` and `neutrals` coalitions in the comms plan JSON file, by adding them on the same levelas "blue" in the JSON file.
+You can specify comms plan for `red` and `neutrals` coalitions in the comms plan JSON file, by adding them on the same level as "blue" in the JSON file.
 
 ## Example run
 
