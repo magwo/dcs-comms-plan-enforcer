@@ -1,13 +1,15 @@
-from bcolors import bcolors
+from colorama import init, Fore, Back, Style
+init()
+from sys import stdout # Needed for weird colorama hack on windows
 
 def print_warning(msg: str):
-    print(f"{bcolors.WARNING}{msg}{bcolors.ENDC}")
+    print(f"{Style.BRIGHT}{Fore.YELLOW}{msg}{Style.RESET_ALL}")
 
 def print_success(msg: str):
-    print(f"{bcolors.OKGREEN}{msg}{bcolors.ENDC}")
+    print(f"{Fore.GREEN}{Style.BRIGHT}{msg}{Style.RESET_ALL}")
 
 def print_bold(msg: str):
-    print(f"{bcolors.BOLD}{msg}{bcolors.ENDC}")
+    print(f"{Style.BRIGHT}{msg}{Style.RESET_ALL}")
 
 
 def fuzzy_match_name(actual_name: str, other_name_start: str):
