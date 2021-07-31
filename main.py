@@ -3,15 +3,17 @@ from enforcer import Enforcer
 import dcs
 import sys
 import json
+import tkinter as tk
+from tkinter import filedialog
 
+root = tk.Tk()
+root.withdraw()
 
-if len(sys.argv) < 2:
-    print("#                                           #")
-    print("# Usage: provide .miz filename to modify    #")
-    print("#                                           #")
-    sys.exit(1)
+filename = filedialog.askopenfilename(title="Select mission file", filetypes=[('Mission files', '.miz')])
 
-filename = sys.argv[1]
+if not filename:
+    sys.exit()
+
 m = dcs.Mission()
 print("Attempting to load mission file", filename)
 m.load_file(filename)
@@ -19,7 +21,8 @@ print("Loaded mission file", filename)
 
 
 num_updated = 0
-with open("comms_plan.json", "r") as f:
+comms_plan_filename = filedialog.askopenfilename(title="Select comms plan JSON file", filetypes=[('JSON files', '.json')])
+with open(comms_plan_filename, "r") as f:
     json_content = f.read()
     all_comms_plans = json.loads(json_content)
 
@@ -46,10 +49,13 @@ if enforcer.accumulated_errors > 0:
 else:
     print_bold("MISSION CHECKS OUT")
 
-if len(sys.argv) >= 3:
-    out_filename = sys.argv[2]
+out_filename = filedialog.asksaveasfilename(title="Save enforced mission as", filetypes=[('Mission files', '.miz')])
+
+if out_filename:
     print("Attempting to save to {}...".format(out_filename))
     m.save(out_filename)
     print("Saved to {}".format(out_filename))
 else:
     print("Dry run was completed")
+
+input("Press Enter to continue...")
