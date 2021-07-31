@@ -126,7 +126,7 @@ class Enforcer:
                     if channels.get(chanNum) != expectedChannels[i]:
                         numIncorrect += 1
                         self.accumulated_errors += 1
-                        print_warning(f"{unit.name} incorrect channel {chanNum}: {channels[chanNum]} should be {expectedChannels[i]}")
+                        print_warning(f"{unit.type} {unit.name} incorrect channel {chanNum}: {channels[chanNum]} should be {expectedChannels[i]}")
                     else:
                         pass
                         #print(f"{unit.name} correct channel {chanNum}: {channels[chanNum]} should be {expectedChannels[i]}")
@@ -135,7 +135,7 @@ class Enforcer:
             if numIncorrect > 0:
                 print_warning(f"{numIncorrect} incorrect channels for unit {unit.name}")
             else:
-                print_success(f"Unit {unit.type} {unit.name} has correct primary channels!")
+                print_success(f"{unit.type} {unit.name} has correct primary channels!")
         except (AttributeError, TypeError) as e:
             print_warning(f"Unit {unit.name} of type {unit.type} with radio {unit.radio} not checkable, probably because A-10 or AI controlled")
             return True
@@ -151,9 +151,9 @@ class Enforcer:
                 secondary_radio = unit.radio.get(2)
                 channels = secondary_radio.get("channels")
                 if channels.get(1) == intra_used:
-                    print_success(f"Unit {unit.name} has correct intra {intra_used}!")
+                    print_success(f"{unit.type} {unit.name} has correct intra {intra_used}!")
                 else:
-                    print_warning(f"Unit {unit.name} has incorrect intra {channels[1]}, expected {intra_used}")
+                    print_warning(f"{unit.type} {unit.name} has incorrect intra {channels[1]}, expected {intra_used}")
                     self.accumulated_errors += 1
                     return False
         except (AttributeError, TypeError) as e:
