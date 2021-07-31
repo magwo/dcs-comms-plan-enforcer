@@ -135,7 +135,7 @@ class Enforcer:
             if numIncorrect > 0:
                 print_warning(f"{numIncorrect} incorrect channels for unit {unit.name}")
             else:
-                print_success(f"Unit {unit.name} has correct primary channels!")
+                print_success(f"Unit {unit.type} {unit.name} has correct primary channels!")
         except (AttributeError, TypeError) as e:
             print_warning(f"Unit {unit.name} of type {unit.type} with radio {unit.radio} not checkable, probably because A-10 or AI controlled")
             return True

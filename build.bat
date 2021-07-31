@@ -1,1 +1,1 @@
-pyinstaller --console --name comms-plan-enforcer --add-data="comms_plan.json;data_files" main.py
+pyinstaller --console --name comms-plan-enforcer --add-data="comms_plan_example.json;." main.py
