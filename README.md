@@ -11,7 +11,7 @@ Enforces radio presets and intraflight frequency according to a standardized com
 
 ## Installation
 
-* Extract contents.
+* Extract contents of zip file.
 * Find and run comms-plan-enforcer.exe in extracted folder.
 
 ## Usage
