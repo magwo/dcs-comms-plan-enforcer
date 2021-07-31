@@ -9,19 +9,27 @@ from tkinter import filedialog
 root = tk.Tk()
 root.withdraw()
 
-filename = filedialog.askopenfilename(title="Select mission file", filetypes=[('Mission files', '.miz')])
+in_filename = sys.argv[1] if len(sys.argv) > 1 else None
+if not in_filename:
+    in_filename = filedialog.askopenfilename(title="Select mission file", filetypes=[('Mission files', '.miz')])
 
-if not filename:
-    sys.exit()
+if not in_filename:
+    sys.exit(1)
 
 m = dcs.Mission()
-print("Attempting to load mission file", filename)
-m.load_file(filename)
-print("Loaded mission file", filename)
+print("Attempting to load mission file", in_filename)
+m.load_file(in_filename)
+print("Loaded mission file", in_filename)
 
 
 num_updated = 0
-comms_plan_filename = filedialog.askopenfilename(title="Select comms plan JSON file", filetypes=[('JSON files', '.json')])
+comms_plan_filename = sys.argv[2] if len(sys.argv) > 2 else None
+if not comms_plan_filename:
+    comms_plan_filename = filedialog.askopenfilename(title="Select comms plan JSON file", filetypes=[('JSON files', '.json')])
+
+if not comms_plan_filename:
+    sys.exit(1)
+
 with open(comms_plan_filename, "r") as f:
     json_content = f.read()
     all_comms_plans = json.loads(json_content)
@@ -49,7 +57,9 @@ if enforcer.accumulated_errors > 0:
 else:
     print_bold("MISSION CHECKS OUT")
 
-out_filename = filedialog.asksaveasfilename(title="Save enforced mission as", filetypes=[('Mission files', '.miz')])
+out_filename = sys.argv[3] if len(sys.argv) > 3 else None
+if not out_filename:
+    out_filename = filedialog.asksaveasfilename(title="Save enforced mission as", filetypes=[('Mission files', '.miz')], initialfile=in_filename)
 
 if out_filename:
     print("Attempting to save to {}...".format(out_filename))
@@ -58,3 +68,4 @@ if out_filename:
 else:
     print("Dry run was completed")
 
+input("Press Enter to continue...")
