@@ -2,7 +2,7 @@
 
 Enforces radio presets and intraflight frequency according to a standardized comms plan. Flight names are used to determine intraflight frequencies, see `comms_plan_example.json`. Also checks and sets frequencies of AI flights such as tankers or AWACS.
 
-![Example run](https://github.com/magwo/dcs-comms-plan-enforcer/blob/main/screenshot.png?raw=true)
+<img src="https://github.com/magwo/dcs-comms-plan-enforcer/blob/main/screenshot.png?raw=true" width="500"/>
 
 ## Requirements
 
