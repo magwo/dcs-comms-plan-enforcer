@@ -11,8 +11,9 @@ Enforces radio presets and intraflight frequency according to a standardized com
 
 ## Installation
 
-* Extract contents of zip file.
-* Find and run comms-plan-enforcer.exe in extracted folder.
+* Download comms-plan-enforcer.zip from the [latest release](https://github.com/magwo/dcs-comms-plan-enforcer/releases).
+* Extract the zip file.
+* Find and run comms-plan-enforcer.exe in the extracted folder.
 
 ## Usage
 
