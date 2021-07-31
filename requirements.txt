@@ -1,1 +1,1 @@
--e git://github.com/pydcs/dcs@2baba37e32bc55fed59ef977c43dad275c9821eb#egg=pydcs
+-e git://github.com/magwo/dcs@63e9c6f082e616cff7596061b9e2c1dae96dcd24#egg=pydcs
