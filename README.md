@@ -1,6 +1,6 @@
 # DCS Comms Plan Enforcer by Mags
 
-Enforces radio presets and intraflight frequency according to a standardized comms plan. Flight names are used to determine intraflight frequencies, see `comms_plan_example.json`. Also checks and sets frequencies of AI flights such as tankers or AWACS.
+Enforces radio presets and intraflight frequency according to a standardized comms plan, per faction. Flight names are used to determine intraflight frequencies, see [comms_plan_example.json](comms_plan_example.json). Also checks and sets frequencies of AI flights such as tankers or AWACS.
 
 <img src="https://github.com/magwo/dcs-comms-plan-enforcer/blob/main/screenshot.png?raw=true" width="500"/>
 
@@ -11,7 +11,8 @@ Enforces radio presets and intraflight frequency according to a standardized com
 
 ## Installation
 
-* Extract contents
+* Extract contents.
+* Find and run comms-plan-enforcer.exe in extracted folder.
 
 ## Usage
 
@@ -19,6 +20,14 @@ Enforces radio presets and intraflight frequency according to a standardized com
 * Enter filenames when prompted.
 
 An example comms plan JSON is included in the application directory: `comms_plan_example.json`. Feel free to edit this file, or copy it to another location and edit your own comms plan. I recommend putting your comms plan file in your Missions folder in "Saved Games DCS", for easy access.
+
+### Advanced usage
+
+The exe file also supports command-line arguments on the format:
+
+`comms-plan-enforcer.exe myMission.miz comms_plan_example.json myEnforcedMission.miz`
+
+Any missing command-line arguments will result in a dialog.
 
 ## Example run
 
