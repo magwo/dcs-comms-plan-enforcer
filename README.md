@@ -1,6 +1,8 @@
-# dcs-comms-plan-enforcer
+# DCS Comms Plan Enforcer by Mags
 
-Enforces radio presets and intraflight frequency according to a standardized comms plan. Flight names are used to determine intraflight frequencies, see `comms_plan.py`. Also checks and sets frequencies of AI flights such as tankers or AWACS.
+Enforces radio presets and intraflight frequency according to a standardized comms plan. Flight names are used to determine intraflight frequencies, see `comms_plan_example.json`. Also checks and sets frequencies of AI flights such as tankers or AWACS.
+
+![Example run](https://github.com/magwo/dcs-comms-plan-enforcer/blob/main/screenshot.png?raw=true)
 
 ## Requirements
 
