@@ -2,7 +2,7 @@ from os import name
 from typing import List
 
 from dcs.helicopters import Mi_24P, Mi_8MT, UH_1H
-from util import fuzzy_find_by_name, print_bold, print_success, print_warning
+from util import fuzzy_find_by_name, print_bold, print_error, print_success, print_warning
 from dataclasses import dataclass
 from dcs.flyingunit import FlyingUnit
 from dcs.unitgroup import HelicopterGroup, PlaneGroup
@@ -87,7 +87,9 @@ class Enforcer:
         for unit in group.units:
             if unit.type in supported_type_ids:
                 # print(f"Unit {unit.type} has {len(unit.radio)} radios", unit.radio)
-                if not self.check_uhf_primary(unit) or not self.check_intra_if_applicable(unit, intra):
+                uhf_primary_ok = self.check_uhf_primary(unit)
+                intra_ok = self.check_intra_if_applicable(unit, intra)
+                if not uhf_primary_ok or not intra_ok:
                     print_bold(f"Enforcing channels of {unit.type} {unit.name}")
                     num_updated += 1
                     if unit.type == AJS37.id:
@@ -127,7 +129,9 @@ class Enforcer:
                         print_warning(f"{unit.name} incorrect channel {chanNum}: {channels[chanNum]} should be {expectedChannels[i]}")
                     else:
                         pass
-                        # print(f"{unit.name} correct channel {chanNum}: {channels[chanNum]} should be {expectedChannels[i]}")
+                        #print(f"{unit.name} correct channel {chanNum}: {channels[chanNum]} should be {expectedChannels[i]}")
+                else:
+                    print_error(f"{unit.name} unexpectedly missing channel {chanNum}")
             if numIncorrect > 0:
                 print_warning(f"{numIncorrect} incorrect channels for unit {unit.name}")
             else:

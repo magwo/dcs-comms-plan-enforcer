@@ -58,4 +58,3 @@ if out_filename:
 else:
     print("Dry run was completed")
 
-input("Press Enter to continue...")
