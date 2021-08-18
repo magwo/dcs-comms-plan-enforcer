@@ -2,6 +2,7 @@ from os import name
 from typing import List
 
 from dcs.helicopters import Mi_24P, Mi_8MT, UH_1H
+from dcs.unit import Skill
 from util import fuzzy_find_by_name, print_bold, print_error, print_success, print_warning
 from dataclasses import dataclass
 from dcs.flyingunit import FlyingUnit
@@ -121,6 +122,8 @@ class Enforcer:
                     print_bold(f"Setting {group.name} group frequency to {expected_freq}")
                     group.frequency = expected_freq
                     self.accumulated_errors += 1
+                else:
+                    print_success(f"{group.name} has correct group frequency {group.frequency}")
 
     def check_uhf_primary(self, unit: FlyingUnit) -> bool:
         """Returns True if unit has correct presets already"""
@@ -152,7 +155,8 @@ class Enforcer:
             else:
                 print_success(f"{unit.type} {unit.name} has correct primary channels!")
         except (AttributeError, TypeError) as e:
-            print_warning(f"Unit {unit.name} of type {unit.type} with radio {unit.radio} not checkable, probably because A-10 or AI controlled")
+            if unit.skill in [Skill.Player, Skill.Client]:
+                print_warning(f"Unit {unit.name} of type {unit.type} with radio {unit.radio} not checkable, probably because A-10")
             return True
 
         return numIncorrect == 0
