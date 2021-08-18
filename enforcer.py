@@ -81,6 +81,7 @@ class Enforcer:
         #     print(f"Group {group.name} has intra freq {intra}")
 
         self.handle_ai_group_if_applicable(group)
+        self.check_and_set_group_frequency(group, intra)
 
         num_updated = 0
         previously_skipped_type = None
@@ -106,6 +107,20 @@ class Enforcer:
                 previously_skipped_type = unit.type
         
         return num_updated
+
+    def check_and_set_group_frequency(self, group: PlaneGroup or HelicopterGroup, intra):
+        if intra is not None:
+            if len(group.units) > 0:
+                if group.units[0].type in vhf_secondary_type_ids:
+                    expected_freq = intra[1]
+                else:
+                    expected_freq = intra[0]
+
+                if group.frequency != expected_freq:
+                    print_warning(f"Incorrect group frequency ({group.frequency}) for {group.name}")
+                    print_bold(f"Setting {group.name} group frequency to {expected_freq}")
+                    group.frequency = expected_freq
+                    self.accumulated_errors += 1
 
     def check_uhf_primary(self, unit: FlyingUnit) -> bool:
         """Returns True if unit has correct presets already"""
@@ -165,8 +180,9 @@ class Enforcer:
         expected_frequency = fuzzy_find_by_name(self.ai_frequencies, group.name)
         if expected_frequency != None:
             if group.frequency != expected_frequency:
-                print_warning(f"AI group {group.name} has wrong frequency. Expected {expected_frequency}")
+                print_warning(f"AI group {group.name} has wrong frequency {group.frequency}. Expected {expected_frequency}")
                 print_bold(f"Setting frequency {expected_frequency} of AI group {group.name}")
+                group.frequency(expected_frequency)
                 self.accumulated_errors += 1
             else:
                 print_success(f"AI group {group.name} has correct frequency {group.frequency}")
