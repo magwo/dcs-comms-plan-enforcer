@@ -32,6 +32,7 @@ zero_indexed_type_ids = [
     MiG_21Bis.id,
     L_39C.id,
     L_39ZA.id,
+    Mi_24P.id,
 ]
 
 double_uhf_type_ids = [
@@ -46,6 +47,15 @@ vhf_secondary_type_ids = [
     A_10C_2.id,
     M_2000C.id
 ]
+
+def get_radio_ch_index_for_plan_index(type_id: str, plan_index: int) -> int:
+    if type_id in zero_indexed_type_ids:
+        if plan_index < 19:
+            return plan_index + 2
+        else:
+            return 1
+    else:
+        return plan_index + 1
 
 @dataclass
 class IntraFrequencies:
@@ -81,8 +91,9 @@ class Enforcer:
         # if intra:
         #     print(f"Group {group.name} has intra freq {intra}")
 
-        self.handle_ai_group_if_applicable(group)
-        self.check_and_set_group_frequency(group, intra)
+        handled_as_ai = self.handle_ai_group_if_applicable(group)
+        if not handled_as_ai:
+            self.check_and_set_group_frequency(group)
 
         num_updated = 0
         previously_skipped_type = None
@@ -109,21 +120,22 @@ class Enforcer:
         
         return num_updated
 
-    def check_and_set_group_frequency(self, group: PlaneGroup or HelicopterGroup, intra):
-        if intra is not None:
-            if len(group.units) > 0:
-                if group.units[0].type in vhf_secondary_type_ids:
-                    expected_freq = intra[1]
-                else:
-                    expected_freq = intra[0]
+    def check_and_set_group_frequency(self, group: PlaneGroup or HelicopterGroup):
+        if len(group.units) > 0:
+            if group.units[0].type == AJS37.id:
+                frequency = self.viggen_plan[0]
+            elif group.units[0].type in zero_indexed_type_ids:
+                frequency = self.uhf_plan[-1]
+            else:
+                frequency = self.uhf_plan[0]
 
-                if group.frequency != expected_freq:
-                    print_warning(f"Incorrect group frequency ({group.frequency}) for {group.name}")
-                    print_bold(f"Setting {group.name} group frequency to {expected_freq}")
-                    group.frequency = expected_freq
-                    self.accumulated_errors += 1
-                else:
-                    print_success(f"{group.name} has correct group frequency {group.frequency}")
+            if group.frequency != frequency:
+                print_warning(f"Incorrect group frequency ({group.frequency}) for {group.name}")
+                print_bold(f"Setting {group.name} group frequency to {frequency}")
+                group.frequency = frequency
+                self.accumulated_errors += 1
+            else:
+                print_success(f"{group.name} has correct group frequency {group.frequency}")
 
     def check_uhf_primary(self, unit: FlyingUnit) -> bool:
         """Returns True if unit has correct presets already"""
@@ -137,9 +149,8 @@ class Enforcer:
             else:
                 expectedChannels = self.uhf_plan
 
-            chanNumOffset = 2 if unit.type in zero_indexed_type_ids else 1
             for i in range(0, len(expectedChannels)):
-                chanNum = i + chanNumOffset
+                chanNum = get_radio_ch_index_for_plan_index(unit.type, i)
                 if channels.get(chanNum):
                     if channels.get(chanNum) != expectedChannels[i]:
                         numIncorrect += 1
@@ -149,7 +160,8 @@ class Enforcer:
                         pass
                         #print(f"{unit.name} correct channel {chanNum}: {channels[chanNum]} should be {expectedChannels[i]}")
                 else:
-                    print_error(f"{unit.name} unexpectedly missing channel {chanNum}")
+                    if unit.type not in zero_indexed_type_ids:
+                        print_error(f"{unit.name} unexpectedly missing channel {chanNum}")
             if numIncorrect > 0:
                 print_warning(f"{numIncorrect} incorrect channels for unit {unit.name}")
             else:
@@ -180,7 +192,7 @@ class Enforcer:
         return True
 
 
-    def handle_ai_group_if_applicable(self, group: PlaneGroup):
+    def handle_ai_group_if_applicable(self, group: PlaneGroup) -> bool:
         expected_frequency = fuzzy_find_by_name(self.ai_frequencies, group.name)
         if expected_frequency != None:
             if group.frequency != expected_frequency:
@@ -190,6 +202,8 @@ class Enforcer:
                 self.accumulated_errors += 1
             else:
                 print_success(f"AI group {group.name} has correct frequency {group.frequency}")
+            return True
+        return False
 
 
     def handle_ajs37(self, unit: FlyingUnit, intra: tuple[float, float]):
@@ -215,9 +229,8 @@ class Enforcer:
             print_warning(f"Unit {unit.name} has no radio {radioNum}, literally can't even :S")
             return
         uhf_plan = self.uhf_plan
-        chanNumOffset = 2 if unit.type in zero_indexed_type_ids else 1
         for i in range(0, len(uhf_plan)):
-            chanNum = i + chanNumOffset
+            chanNum = get_radio_ch_index_for_plan_index(unit.type, i)
             if chanNum <= unit.num_radio_channels(radioNum):
-                # print(f"Setting chan {chanNum} of radio {radioNum} ({uhf_plan[i]})")
+                print(f"Setting chan {chanNum} of radio {radioNum} ({uhf_plan[i]})")
                 unit.set_radio_channel_preset(radioNum, chanNum, uhf_plan[i])
